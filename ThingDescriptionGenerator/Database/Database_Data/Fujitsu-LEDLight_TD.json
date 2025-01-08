@@ -1,0 +1,430 @@
+{
+    "asyncapi": "3.0.0",
+    "info": {
+        "title": "GeneralLighting-000e7b137c10029001",
+        "version": "1.0.0",
+        "description": "LED light"
+    },
+    "servers": {
+        "base": {
+            "host": "http://wot.f-ncs.ad.jp/Things/urn%3Acom%3Afujitsu%3Aechonet-lite%3A000e7b137c10029001/",
+            "protocol": "http",
+            "pathname": "property/",
+            "description": "",
+            "title": "",
+            "summary": "",
+            "variables": {},
+            "security": [
+                {
+                    "type": "plain"
+                }
+            ],
+            "bindings": {}
+        }
+    },
+    "channels": {
+        "properties_resource_channel": {
+            "messages": {
+                "FF": {
+                    "$ref": "#/components/messages/FF"
+                },
+                "SetList": {
+                    "$ref": "#/components/messages/SetList"
+                },
+                "ProductCode": {
+                    "$ref": "#/components/messages/ProductCode"
+                },
+                "ManufactureDate": {
+                    "$ref": "#/components/messages/ManufactureDate"
+                },
+                "IlluminancePercentage": {
+                    "$ref": "#/components/messages/IlluminancePercentage"
+                },
+                "CheckIPStatus": {
+                    "$ref": "#/components/messages/CheckIPStatus"
+                },
+                "SpecVersionInfoCode": {
+                    "$ref": "#/components/messages/SpecVersionInfoCode"
+                },
+                "GetList": {
+                    "$ref": "#/components/messages/GetList"
+                },
+                "DeviceConnectStatus": {
+                    "$ref": "#/components/messages/DeviceConnectStatus"
+                },
+                "MakerCode": {
+                    "$ref": "#/components/messages/MakerCode"
+                },
+                "FaultStatus": {
+                    "$ref": "#/components/messages/FaultStatus"
+                },
+                "DeviceRunningStatus": {
+                    "$ref": "#/components/messages/DeviceRunningStatus"
+                },
+                "OperationStatus": {
+                    "$ref": "#/components/messages/OperationStatus"
+                },
+                "NotifyList": {
+                    "$ref": "#/components/messages/NotifyList"
+                },
+                "PlaceOfBusinessCode": {
+                    "$ref": "#/components/messages/PlaceOfBusinessCode"
+                }
+            },
+            "servers": [
+                {
+                    "$ref": "#/servers/base"
+                }
+            ]
+        }
+    },
+    "operations": {
+        "properties_resource_operation": {
+            "messages": [
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/FF"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/SetList"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/ProductCode"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/ManufactureDate"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/IlluminancePercentage"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/CheckIPStatus"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/SpecVersionInfoCode"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/GetList"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/DeviceConnectStatus"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/MakerCode"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/FaultStatus"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/DeviceRunningStatus"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/OperationStatus"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/NotifyList"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/PlaceOfBusinessCode"
+                }
+            ],
+            "action": "receive",
+            "channel": {
+                "$ref": "#/channels/properties_resource_channel"
+            }
+        }
+    },
+    "components": {
+        "messages": {
+            "FF": {
+                "headers": {
+                    "$ref": "#/components/schemas/FF_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/FF_payload"
+                }
+            },
+            "SetList": {
+                "headers": {
+                    "$ref": "#/components/schemas/SetList_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/SetList_payload"
+                }
+            },
+            "ProductCode": {
+                "headers": {
+                    "$ref": "#/components/schemas/ProductCode_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/ProductCode_payload"
+                }
+            },
+            "ManufactureDate": {
+                "headers": {
+                    "$ref": "#/components/schemas/ManufactureDate_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/ManufactureDate_payload"
+                }
+            },
+            "IlluminancePercentage": {
+                "headers": {
+                    "$ref": "#/components/schemas/IlluminancePercentage_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/IlluminancePercentage_payload"
+                }
+            },
+            "CheckIPStatus": {
+                "headers": {
+                    "$ref": "#/components/schemas/CheckIPStatus_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/CheckIPStatus_payload"
+                }
+            },
+            "SpecVersionInfoCode": {
+                "headers": {
+                    "$ref": "#/components/schemas/SpecVersionInfoCode_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/SpecVersionInfoCode_payload"
+                }
+            },
+            "GetList": {
+                "headers": {
+                    "$ref": "#/components/schemas/GetList_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/GetList_payload"
+                }
+            },
+            "DeviceConnectStatus": {
+                "headers": {
+                    "$ref": "#/components/schemas/DeviceConnectStatus_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/DeviceConnectStatus_payload"
+                }
+            },
+            "MakerCode": {
+                "headers": {
+                    "$ref": "#/components/schemas/MakerCode_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/MakerCode_payload"
+                }
+            },
+            "FaultStatus": {
+                "headers": {
+                    "$ref": "#/components/schemas/FaultStatus_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/FaultStatus_payload"
+                }
+            },
+            "DeviceRunningStatus": {
+                "headers": {
+                    "$ref": "#/components/schemas/DeviceRunningStatus_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/DeviceRunningStatus_payload"
+                }
+            },
+            "OperationStatus": {
+                "headers": {
+                    "$ref": "#/components/schemas/OperationStatus_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/OperationStatus_payload"
+                }
+            },
+            "NotifyList": {
+                "headers": {
+                    "$ref": "#/components/schemas/NotifyList_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/NotifyList_payload"
+                }
+            },
+            "PlaceOfBusinessCode": {
+                "headers": {
+                    "$ref": "#/components/schemas/PlaceOfBusinessCode_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/PlaceOfBusinessCode_payload"
+                }
+            }
+        },
+        "schemas": {
+            "PlaceOfBusinessCode_headers": {},
+            "PlaceOfBusinessCode_payload": {
+                "type": "string"
+            },
+            "NotifyList_headers": {},
+            "NotifyList_payload": {
+                "type": "string"
+            },
+            "OperationStatus_headers": {},
+            "OperationStatus_payload": {
+                "type": "string",
+                "enum": [
+                    "ON",
+                    "OFF"
+                ]
+            },
+            "DeviceRunningStatus_headers": {},
+            "DeviceRunningStatus_payload": {
+                "type": "string"
+            },
+            "FaultStatus_headers": {},
+            "FaultStatus_payload": {
+                "type": "string"
+            },
+            "MakerCode_headers": {},
+            "MakerCode_payload": {
+                "type": "string"
+            },
+            "DeviceConnectStatus_headers": {},
+            "DeviceConnectStatus_payload": {
+                "type": "string"
+            },
+            "GetList_headers": {},
+            "GetList_payload": {
+                "type": "string"
+            },
+            "SpecVersionInfoCode_headers": {},
+            "SpecVersionInfoCode_payload": {
+                "type": "string"
+            },
+            "CheckIPStatus_headers": {},
+            "CheckIPStatus_payload": {
+                "type": "string"
+            },
+            "FF_headers": {},
+            "FF_payload": {
+                "type": "string"
+            },
+            "SetList_headers": {},
+            "SetList_payload": {
+                "type": "string"
+            },
+            "ProductCode_headers": {},
+            "ProductCode_payload": {
+                "type": "string"
+            },
+            "ManufactureDate_headers": {},
+            "ManufactureDate_payload": {
+                "type": "string"
+            },
+            "IlluminancePercentage_headers": {},
+            "IlluminancePercentage_payload": {
+                "type": "string",
+                "enum": [
+                    "0",
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9",
+                    "10",
+                    "11",
+                    "12",
+                    "13",
+                    "14",
+                    "15",
+                    "16",
+                    "17",
+                    "18",
+                    "19",
+                    "20",
+                    "21",
+                    "22",
+                    "23",
+                    "24",
+                    "25",
+                    "26",
+                    "27",
+                    "28",
+                    "29",
+                    "30",
+                    "31",
+                    "32",
+                    "33",
+                    "34",
+                    "35",
+                    "36",
+                    "37",
+                    "38",
+                    "39",
+                    "40",
+                    "41",
+                    "42",
+                    "43",
+                    "44",
+                    "45",
+                    "46",
+                    "47",
+                    "48",
+                    "49",
+                    "50",
+                    "51",
+                    "52",
+                    "53",
+                    "54",
+                    "55",
+                    "56",
+                    "57",
+                    "58",
+                    "59",
+                    "60",
+                    "61",
+                    "62",
+                    "63",
+                    "64",
+                    "65",
+                    "66",
+                    "67",
+                    "68",
+                    "69",
+                    "70",
+                    "71",
+                    "72",
+                    "73",
+                    "74",
+                    "75",
+                    "76",
+                    "77",
+                    "78",
+                    "79",
+                    "80",
+                    "81",
+                    "82",
+                    "83",
+                    "84",
+                    "85",
+                    "86",
+                    "87",
+                    "88",
+                    "89",
+                    "90",
+                    "91",
+                    "92",
+                    "93",
+                    "94",
+                    "95",
+                    "96",
+                    "97",
+                    "98",
+                    "99",
+                    "100",
+                    "unalterable"
+                ]
+            }
+        }
+    }
+}

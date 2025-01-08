@@ -1,0 +1,256 @@
+{
+    "asyncapi": "3.0.0",
+    "info": {
+        "title": "BACnetDemoboard",
+        "version": "1.1.0"
+    },
+    "servers": {
+        "base": {
+            "host": "bacnet://192.168.0.41",
+            "protocol": "bacnet",
+            "pathname": "/{var1}/{var2}/PROP_PRESENT_VALUE",
+            "description": "",
+            "title": "",
+            "summary": "",
+            "variables": {
+                "var1": {
+                    "enum": [
+                        "OBJECT_ANALOG_VALUE",
+                        "OBJECT_ANALOG_OUTPUT",
+                        "OBJECT_ANALOG_INPUT"
+                    ]
+                },
+                "var2": {
+                    "enum": [
+                        "225",
+                        "223",
+                        "74",
+                        "93",
+                        "301",
+                        "57",
+                        "41"
+                    ]
+                }
+            },
+            "security": [],
+            "bindings": {}
+        }
+    },
+    "channels": {
+        "properties_resource_channel": {
+            "messages": {
+                "HVACTemperatureSetpoint": {
+                    "$ref": "#/components/messages/HVACTemperatureSetpoint"
+                },
+                "HVACFanSpeed": {
+                    "$ref": "#/components/messages/HVACFanSpeed"
+                },
+                "HMIFanSpeed": {
+                    "$ref": "#/components/messages/HMIFanSpeed"
+                },
+                "roomAirQuality": {
+                    "$ref": "#/components/messages/roomAirQuality"
+                },
+                "roomAirTemperature": {
+                    "$ref": "#/components/messages/roomAirTemperature"
+                },
+                "light1Brightness": {
+                    "$ref": "#/components/messages/light1Brightness"
+                },
+                "light2Brightness": {
+                    "$ref": "#/components/messages/light2Brightness"
+                }
+            },
+            "servers": [
+                {
+                    "$ref": "#/servers/base"
+                }
+            ]
+        }
+    },
+    "operations": {
+        "properties_resource_operation": {
+            "messages": [
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/HVACTemperatureSetpoint"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/HVACFanSpeed"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/HMIFanSpeed"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/roomAirQuality"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/roomAirTemperature"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/light1Brightness"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/light2Brightness"
+                }
+            ],
+            "action": "receive",
+            "channel": {
+                "$ref": "#/channels/properties_resource_channel"
+            }
+        }
+    },
+    "components": {
+        "messages": {
+            "HVACTemperatureSetpoint": {
+                "headers": {
+                    "$ref": "#/components/schemas/HVACTemperatureSetpoint_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/HVACTemperatureSetpoint_payload"
+                }
+            },
+            "HVACFanSpeed": {
+                "headers": {
+                    "$ref": "#/components/schemas/HVACFanSpeed_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/HVACFanSpeed_payload"
+                }
+            },
+            "HMIFanSpeed": {
+                "headers": {
+                    "$ref": "#/components/schemas/HMIFanSpeed_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/HMIFanSpeed_payload"
+                }
+            },
+            "roomAirQuality": {
+                "headers": {
+                    "$ref": "#/components/schemas/roomAirQuality_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/roomAirQuality_payload"
+                }
+            },
+            "roomAirTemperature": {
+                "headers": {
+                    "$ref": "#/components/schemas/roomAirTemperature_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/roomAirTemperature_payload"
+                }
+            },
+            "light1Brightness": {
+                "headers": {
+                    "$ref": "#/components/schemas/light1Brightness_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/light1Brightness_payload"
+                }
+            },
+            "light2Brightness": {
+                "headers": {
+                    "$ref": "#/components/schemas/light2Brightness_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/light2Brightness_payload"
+                }
+            }
+        },
+        "schemas": {
+            "light2Brightness_headers": {
+                "type": "object",
+                "properties": {
+                    "contentType": {
+                        "type": "string",
+                        "const": "application/json"
+                    }
+                },
+                "additionalProperties": true
+            },
+            "light2Brightness_payload": {
+                "type": "number"
+            },
+            "light1Brightness_headers": {
+                "type": "object",
+                "properties": {
+                    "contentType": {
+                        "type": "string",
+                        "const": "application/json"
+                    }
+                },
+                "additionalProperties": true
+            },
+            "light1Brightness_payload": {
+                "type": "number"
+            },
+            "roomAirTemperature_headers": {
+                "type": "object",
+                "properties": {
+                    "contentType": {
+                        "type": "string",
+                        "const": "application/json"
+                    }
+                },
+                "additionalProperties": true
+            },
+            "roomAirTemperature_payload": {
+                "type": "number"
+            },
+            "roomAirQuality_headers": {
+                "type": "object",
+                "properties": {
+                    "contentType": {
+                        "type": "string",
+                        "const": "application/json"
+                    }
+                },
+                "additionalProperties": true
+            },
+            "roomAirQuality_payload": {
+                "type": "number"
+            },
+            "HMIFanSpeed_headers": {
+                "type": "object",
+                "properties": {
+                    "contentType": {
+                        "type": "string",
+                        "const": "application/json"
+                    }
+                },
+                "additionalProperties": true
+            },
+            "HMIFanSpeed_payload": {
+                "type": "number"
+            },
+            "HVACFanSpeed_headers": {
+                "type": "object",
+                "properties": {
+                    "contentType": {
+                        "type": "string",
+                        "const": "application/json"
+                    }
+                },
+                "additionalProperties": true
+            },
+            "HVACFanSpeed_payload": {
+                "type": "number"
+            },
+            "HVACTemperatureSetpoint_headers": {
+                "type": "object",
+                "properties": {
+                    "contentType": {
+                        "type": "string",
+                        "const": "application/json"
+                    }
+                },
+                "additionalProperties": true
+            },
+            "HVACTemperatureSetpoint_payload": {
+                "type": "number"
+            }
+        }
+    },
+    "id": "urn:dev:wot:org:bacnet:demo"
+}

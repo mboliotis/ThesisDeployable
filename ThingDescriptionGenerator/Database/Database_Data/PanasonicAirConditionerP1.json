@@ -1,0 +1,499 @@
+{
+    "asyncapi": "3.0.0",
+    "info": {
+        "title": "PanasonicAirConditionerP1",
+        "version": "1.0",
+        "description": "This is the very awesome description of the panasonic airconditionair!",
+        "contact": {
+            "name": "ContactName",
+            "url": "https://contact_url.com",
+            "email": "contact@email.com"
+        },
+        "license": {
+            "name": "Lisence Name",
+            "url": "https://license_url.com"
+        }
+    },
+    "servers": {
+        "base": {
+            "host": "https://w3c.p-wot.com/{var1}/",
+            "protocol": "https",
+            "pathname": "/wot-ver2/things/airconditioner/1/{var2}",
+            "description": "This is the main server",
+            "title": "The main server",
+            "summary": "This is the main server summary",
+            "variables": {
+                "var2": {
+                    "default": "Testing",
+                    "enum": [
+                        "Testing"
+                    ]
+                },
+                "var1": {
+                    "default": "Auto",
+                    "enum": [
+                        "Auto",
+                        "Blast",
+                        "Cooling",
+                        "Dehumidifying",
+                        "Heating"
+                    ]
+                }
+            },
+            "security": [
+                {
+                    "type": "http",
+                    "scheme": "bearer",
+                    "bearerFormat": "JWT"
+                }
+            ],
+            "bindings": {}
+        },
+        "base22": {
+            "host": "https://w3c.p-wot.com",
+            "protocol": "https",
+            "pathname": "/wot-ver2/things/airconditioner/1/",
+            "description": "",
+            "title": "",
+            "summary": "",
+            "variables": {},
+            "security": [
+                {
+                    "type": "http",
+                    "scheme": "bearer",
+                    "bearerFormat": "JWT"
+                }
+            ],
+            "bindings": {}
+        }
+    },
+    "channels": {
+        "properties_resource_channel": {
+            "messages": {
+                "web_thing_state_operationStatus": {
+                    "$ref": "#/components/messages/web_thing_state_operationStatus"
+                },
+                "web_thing_state_operationMode": {
+                    "$ref": "#/components/messages/web_thing_state_operationMode"
+                },
+                "web_thing_state_desiredTemp": {
+                    "$ref": "#/components/messages/web_thing_state_desiredTemp"
+                },
+                "web_thing_state_windVolumeLevel": {
+                    "$ref": "#/components/messages/web_thing_state_windVolumeLevel"
+                },
+                "web_thing_state_change": {
+                    "$ref": "#/components/messages/web_thing_state_change"
+                },
+                "change": {
+                    "$ref": "#/components/messages/change"
+                },
+                "windVolumeLevel": {
+                    "$ref": "#/components/messages/windVolumeLevel"
+                },
+                "desiredTemp": {
+                    "$ref": "#/components/messages/desiredTemp"
+                },
+                "operationMode": {
+                    "$ref": "#/components/messages/operationMode"
+                },
+                "operationStatus": {
+                    "$ref": "#/components/messages/operationStatus"
+                }
+            },
+            "servers": [
+                {
+                    "$ref": "#/servers/base"
+                },
+                {
+                    "$ref": "#/servers/base22"
+                }
+            ]
+        },
+        "actions_resource_channel": {
+            "messages": {
+                "web_thing_actions_operationStatus": {
+                    "$ref": "#/components/messages/web_thing_actions_operationStatus"
+                },
+                "web_thing_actions_operationMode": {
+                    "$ref": "#/components/messages/web_thing_actions_operationMode"
+                },
+                "web_thing_actions_desiredTemp": {
+                    "$ref": "#/components/messages/web_thing_actions_desiredTemp"
+                },
+                "web_thing_actions_windVolumeLevel": {
+                    "$ref": "#/components/messages/web_thing_actions_windVolumeLevel"
+                },
+                "web_thing_actions_change": {
+                    "$ref": "#/components/messages/web_thing_actions_change"
+                }
+            },
+            "servers": []
+        },
+        "webthing_resource_channel": {
+            "messages": {
+                "web_thing_resource_operationStatus": {
+                    "$ref": "#/components/messages/web_thing_resource_operationStatus"
+                },
+                "web_thing_resource_operationMode": {
+                    "$ref": "#/components/messages/web_thing_resource_operationMode"
+                },
+                "web_thing_resource_desiredTemp": {
+                    "$ref": "#/components/messages/web_thing_resource_desiredTemp"
+                },
+                "web_thing_resource_windVolumeLevel": {
+                    "$ref": "#/components/messages/web_thing_resource_windVolumeLevel"
+                },
+                "web_thing_resource_change": {
+                    "$ref": "#/components/messages/web_thing_resource_change"
+                }
+            },
+            "servers": []
+        }
+    },
+    "operations": {
+        "properties_resource_operation": {
+            "messages": [
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/web_thing_state_operationStatus"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/web_thing_state_operationMode"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/web_thing_state_desiredTemp"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/web_thing_state_windVolumeLevel"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/web_thing_state_change"
+                }
+            ],
+            "action": "send",
+            "channel": {
+                "$ref": "#/channels/properties_resource_channel"
+            }
+        },
+        "actions_resource_operation": {
+            "messages": [
+                {
+                    "$ref": "#/channels/actions_resource_channel/messages/web_thing_actions_operationStatus"
+                },
+                {
+                    "$ref": "#/channels/actions_resource_channel/messages/web_thing_actions_operationMode"
+                },
+                {
+                    "$ref": "#/channels/actions_resource_channel/messages/web_thing_actions_desiredTemp"
+                },
+                {
+                    "$ref": "#/channels/actions_resource_channel/messages/web_thing_actions_windVolumeLevel"
+                },
+                {
+                    "$ref": "#/channels/actions_resource_channel/messages/web_thing_actions_change"
+                }
+            ],
+            "action": "receive",
+            "channel": {
+                "$ref": "#/channels/actions_resource_channel"
+            }
+        },
+        "webthing_resource_operation": {
+            "messages": [
+                {
+                    "$ref": "#/channels/webthing_resource_channel/messages/web_thing_resource_operationStatus"
+                },
+                {
+                    "$ref": "#/channels/webthing_resource_channel/messages/web_thing_resource_operationMode"
+                },
+                {
+                    "$ref": "#/channels/webthing_resource_channel/messages/web_thing_resource_desiredTemp"
+                },
+                {
+                    "$ref": "#/channels/webthing_resource_channel/messages/web_thing_resource_windVolumeLevel"
+                },
+                {
+                    "$ref": "#/channels/webthing_resource_channel/messages/web_thing_resource_change"
+                }
+            ],
+            "action": "send",
+            "channel": {
+                "$ref": "#/channels/webthing_resource_channel"
+            }
+        }
+    },
+    "components": {
+        "messages": {
+            "web_thing_state_operationStatus": {
+                "headers": {},
+                "payload": {
+                    "description": "Read a value from the web thing.",
+                    "type": "string"
+                }
+            },
+            "web_thing_state_operationMode": {
+                "headers": {},
+                "payload": {
+                    "description": "Read a value from the web thing.",
+                    "type": "string"
+                }
+            },
+            "web_thing_state_desiredTemp": {
+                "headers": {},
+                "payload": {
+                    "description": "Read a value from the web thing.",
+                    "type": "string"
+                }
+            },
+            "web_thing_state_windVolumeLevel": {
+                "headers": {},
+                "payload": {
+                    "description": "Read a value from the web thing.",
+                    "type": "string"
+                }
+            },
+            "web_thing_state_change": {
+                "headers": {},
+                "payload": {
+                    "description": "Read a value from the web thing.",
+                    "type": "string"
+                }
+            },
+            "web_thing_actions_operationStatus": {
+                "headers": {},
+                "payload": {
+                    "description": "Read a value from the web thing.",
+                    "type": "string"
+                }
+            },
+            "web_thing_actions_operationMode": {
+                "headers": {},
+                "payload": {
+                    "description": "Read a value from the web thing.",
+                    "type": "string"
+                }
+            },
+            "web_thing_actions_desiredTemp": {
+                "headers": {},
+                "payload": {
+                    "description": "Read a value from the web thing.",
+                    "type": "string"
+                }
+            },
+            "web_thing_actions_windVolumeLevel": {
+                "headers": {},
+                "payload": {
+                    "description": "Read a value from the web thing.",
+                    "type": "string"
+                }
+            },
+            "web_thing_actions_change": {
+                "headers": {},
+                "payload": {
+                    "description": "Read a value from the web thing.",
+                    "type": "string"
+                }
+            },
+            "web_thing_resource_operationStatus": {
+                "headers": {},
+                "payload": {
+                    "description": "Read a value from the web thing.",
+                    "type": "string"
+                }
+            },
+            "web_thing_resource_operationMode": {
+                "headers": {},
+                "payload": {
+                    "description": "Read a value from the web thing.",
+                    "type": "string"
+                }
+            },
+            "web_thing_resource_desiredTemp": {
+                "headers": {},
+                "payload": {
+                    "description": "Read a value from the web thing.",
+                    "type": "string"
+                }
+            },
+            "web_thing_resource_windVolumeLevel": {
+                "headers": {},
+                "payload": {
+                    "description": "Read a value from the web thing.",
+                    "type": "string"
+                }
+            },
+            "web_thing_resource_change": {
+                "headers": {},
+                "payload": {
+                    "description": "Read a value from the web thing.",
+                    "type": "string"
+                }
+            },
+            "change": {
+                "headers": {
+                    "$ref": "#/components/schemas/change_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/change_payload"
+                }
+            },
+            "windVolumeLevel": {
+                "headers": {
+                    "$ref": "#/components/schemas/windVolumeLevel_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/windVolumeLevel_payload"
+                }
+            },
+            "desiredTemp": {
+                "headers": {
+                    "$ref": "#/components/schemas/desiredTemp_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/desiredTemp_payload"
+                }
+            },
+            "operationMode": {
+                "headers": {
+                    "$ref": "#/components/schemas/operationMode_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/operationMode_payload"
+                }
+            },
+            "operationStatus": {
+                "headers": {
+                    "$ref": "#/components/schemas/operationStatus_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/operationStatus_payload"
+                }
+            }
+        },
+        "externalDocs": {
+            "externalDocs": {
+                "description": "This is an awesome description! keep that in mind!",
+                "url": "https://externaldocs.com"
+            }
+        },
+        "tags": {
+            "tag1": {
+                "name": "tag1",
+                "description": "tag1_description"
+            },
+            "tag2": {
+                "name": "tag2",
+                "description": "tag2_description"
+            },
+            "tag3": {
+                "name": "tag3",
+                "description": "tag3_description"
+            }
+        },
+        "schemas": {
+            "change_headers": {
+                "type": "object",
+                "properties": {
+                    "contentType": {
+                        "type": "string",
+                        "const": "application/json"
+                    },
+                    "x-auth": {
+                        "type": "number"
+                    },
+                    "x-machine-id": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "change_payload": {
+                "type": "object",
+                "properties": {
+                    "operationStatus": {
+                        "type": "boolean"
+                    },
+                    "operationMode": {
+                        "type": "string",
+                        "enum": [
+                            "Auto",
+                            "Cooling",
+                            "Heating",
+                            "Dehumidifying",
+                            "Blast"
+                        ]
+                    },
+                    "desiredTemp": {
+                        "type": "number",
+                        "minimum": 16,
+                        "maximum": 30
+                    },
+                    "windVolumeLevel": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 8
+                    }
+                }
+            },
+            "windVolumeLevel_headers": {
+                "type": "object",
+                "properties": {
+                    "contentType": {
+                        "type": "string",
+                        "const": "application/json"
+                    }
+                }
+            },
+            "windVolumeLevel_payload": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 8
+            },
+            "desiredTemp_headers": {
+                "type": "object",
+                "properties": {
+                    "contentType": {
+                        "type": "string",
+                        "const": "application/json"
+                    }
+                }
+            },
+            "desiredTemp_payload": {
+                "type": "number",
+                "minimum": 16,
+                "maximum": 30
+            },
+            "operationMode_headers": {
+                "type": "object",
+                "properties": {
+                    "contentType": {
+                        "type": "string",
+                        "const": "application/json"
+                    }
+                }
+            },
+            "operationMode_payload": {
+                "type": "string",
+                "enum": [
+                    "Auto",
+                    "Cooling",
+                    "Heating",
+                    "Dehumidifying",
+                    "Blast"
+                ]
+            },
+            "operationStatus_headers": {
+                "type": "object",
+                "properties": {
+                    "contentType": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "operationStatus_payload": {
+                "type": "boolean"
+            }
+        }
+    },
+    "defaultContentType": "application/json",
+    "id": "urn:uuid:ed0392cc-3109-48d0-bfd2-3818e2528c78"
+}

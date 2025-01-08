@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./Thesis_Frontend  # Relative path to frontend directory
+    ports:
+      - "8888:3000"  # Maps host port 3000 to container's port 80
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  backend:
+    build:
+      context: ./ThingDescriptionGenerator  # Relative path to backend directory
+    ports:
+      - "5000:5000"  # Maps host port 5000 to container's port 5000
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

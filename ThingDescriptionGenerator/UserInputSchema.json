@@ -1,0 +1,286 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Thing Description User Input",
+    "description": " This schema describes how the user input must be structured so it will GENERATE a valid Thing Description. This is NOT the Thing Description.",
+    "version": "1.0",
+    "type": "object",
+    "required": [
+        "info",
+        "servers"
+    ],
+    "properties": {
+        "info": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "contact": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        },
+                        "url": {
+                            "type": "string"
+                        },
+                        "email": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "license": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        },
+                        "url": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "required": [
+                "title",
+                "version"
+            ]
+        },
+        "servers": {
+            "type": "array",
+            "items": {
+                "additionalProperties": false,
+                "required": [
+                    "name",
+                    "host",
+                    "protocol"
+                ],
+                "type": "object",
+                "properties": {
+                    "for": {
+                        "description": "Define the channel that this server  works with.",
+                        "type": "string",
+                        "enum": [
+                            "all",
+                            "webthing_resource_channel",
+                            "properties_resource_channel",
+                            "actions_resource_channel",
+                            "webthing_resource_channel_&_properties_resource_channel",
+                            "webthing_resource_channel_&_actions_resource_channel",
+                            "properties_resource_channel_&_actions_resource_channel"
+                        ]
+                    },
+                    "name": {
+                        "description": "This is the server ID.",
+                        "type": "string"
+                    },
+                    "host": {
+                        "type": "string"
+                    },
+                    "protocol": {
+                        "type": "string"
+                    },
+                    "pathname": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "summary": {
+                        "type": "string"
+                    },
+                    "variables": {
+                        "description": "In this object the keys MUST be the variables in the path.",
+                        "type": "object",
+                        "properties": {
+                            "enum": {
+                                "type": "array",
+                                "item": {
+                                    "type": "string"
+                                }
+                            },
+                            "default": {
+                                "type": "string"
+                            },
+                            "description": {
+                                "type": "string"
+                            },
+                            "examples": {
+                                "type": "array",
+                                "item": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": {
+                    "description": "The supported security schemes of the server. If this property exist then the root property: serverSecuritySchemas must be set",
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "userPassword",
+                            "apiKey",
+                            "X509",
+                            "symmetricEncryption",
+                            "asymmetricEncryption",
+                            "httpApiKey",
+                            "http",
+                            "oauth2",
+                            "openIdConnect",
+                            "plain",
+                            "scramSha256",
+                            "scramSha512",
+                            "gssapi"
+                        ]
+                    }
+                },
+                "bindings": {
+                    "description": "Server Bindings as defined in Asyncapi specification 3.0.0",
+                    "type": "object"
+                }
+            }
+        }
+    },
+    "tags": {
+        "type": "array",
+        "items": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "externalDocs": {
+        "type": "object",
+        "properties": {
+            "description": {
+                "type": "string"
+            },
+            "url": {
+                "type": "string"
+            }
+        }
+    },
+    "web_thing_resource": {
+        "description": "This array contain info about the webthing.",
+        "type": "array",
+        "items": {
+            "type": "string"
+        }
+    },
+    "web_thing_state": {
+        "description": "Every item in this array will generate a send operation",
+        "type": "array",
+        "items": {
+            "type": "string"
+        }
+    },
+    "web_thing_actions": {
+        "description": "Every item in this array will generate a receive operation",
+        "type": "array",
+        "items": {
+            "type": "string"
+        }
+    },
+    "deviceType": {
+        "type": "string",
+        "enum": [
+            "sensor",
+            "actuator",
+            "sensor&actuator"
+        ]
+    },
+    "serverSecuritySchemas": {
+        "description": "Define the security schema as set in the Asyncapi Specification 3.0.0",
+        "type": "array",
+        "items": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "enum": [
+                        "userPassword",
+                        "apiKey",
+                        "X509",
+                        "symmetricEncryption",
+                        "asymmetricEncryption",
+                        "httpApiKey",
+                        "http",
+                        "oauth2",
+                        "openIdConnect",
+                        "plain",
+                        "scramSha256",
+                        "scramSha512",
+                        "gssapi"
+                    ]
+                },
+                "additionalProperties": true,
+                "required": [
+                    "type"
+                ]
+            }
+        }
+    },
+    "messagesSchemas": {
+        "description": "Define the messages payload and device-specific headers. Can be defined as empty objects",
+        "type": "array",
+        "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "messageID",
+                "channelID",
+                "headers",
+                "payload"
+            ],
+            "properties": {
+                "messageID": {
+                    "type": "string"
+                },
+                "channelID": {
+                    "type": "string",
+                    "enum": [
+                        "webthing_resource_channel",
+                        "properties_resource_channel",
+                        "actions_resource_channel"
+                    ]
+                },
+                "headers": {
+                    "type": "object"
+                },
+                "payload": {
+                    "type": "object"
+                }
+            }
+        }
+    },
+    "id": {
+        "type": "string"
+    },
+    "defaultContentType": {
+        "type": "string"
+    },
+    "components": {
+        "description": "Here the user can define any object based on the asyncapi spesification (or not) \nthat is not already included in this schema.",
+        "type": "object"
+    }
+}

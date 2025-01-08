@@ -1,0 +1,103 @@
+{
+    "asyncapi": "3.0.0",
+    "info": {
+        "title": "Web Thing Model API for Smart Door actuator",
+        "version": "1.0.0",
+        "description": "This is a Web Thing Model server.  You can find\nout more about Web Thing Model (W3C) at\n[https://www.w3.org/Submission/wot-model/](https://www.w3.org/Submission/wot-model/).\n"
+    },
+    "servers": {
+        "main_server": {
+            "host": "http://localhost:5000/DHT22",
+            "protocol": "http",
+            "description": "SwaggerHub API Auto Mocking"
+        },
+        "dev_server": {
+            "host": "http://localhost:5220/DHT22",
+            "protocol": "http",
+            "description": "SwaggerHub API Auto Mocking"
+        }
+    },
+    "channels": {
+        "properties_resource_channel": {
+            "address": "state",
+            "messages": {
+                "get_state": {
+                    "$ref": "#/components/messages/get_state"
+                }
+            },
+            "servers": [
+                {
+                    "$ref": "#/servers/main_server"
+                }
+            ]
+        },
+        "actions_resource_channel": {
+            "address": "actions",
+            "messages": {
+                "lock": {
+                    "$ref": "#/components/messages/lock"
+                },
+                "unlock": {
+                    "$ref": "#/components/messages/unlock"
+                }
+            },
+            "servers": [
+                {
+                    "$ref": "#/servers/main_server"
+                }
+            ]
+        }
+    },
+    "operations": {
+        "properties_resource_operation": {
+            "action": "receive",
+            "channel": {
+                "$ref": "#/channels/properties_resource_channel"
+            },
+            "messages": [
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/get_state"
+                }
+            ]
+        },
+        "actions_resource_operation": {
+            "action": "send",
+            "channel": {
+                "$ref": "#/channels/actions_resource_channel"
+            },
+            "messages": [
+                {
+                    "$ref": "#/channels/actions_resource_channel/messages/lock"
+                },
+                {
+                    "$ref": "#/channels/actions_resource_channel/messages/unlock"
+                }
+            ]
+        }
+    },
+    "components": {
+        "messages": {
+            "get_state": {
+                "payload": {
+                    "type": "object"
+                }
+            },
+            "lock": {
+                "payload": {
+                    "type": "object"
+                }
+            },
+            "unlock": {
+                "payload": {
+                    "type": "object"
+                }
+            }
+        },
+        "externalDocs": {
+            "externalDocs": {
+                "description": "Find out more about Web Thing Model",
+                "url": "https://www.w3.org/Submission/wot-model/"
+            }
+        }
+    }
+}

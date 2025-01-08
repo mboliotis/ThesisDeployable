@@ -1,0 +1,195 @@
+{
+    "asyncapi": "3.0.0",
+    "info": {
+        "title": "PAC4200",
+        "version": "0.1.0"
+    },
+    "servers": {
+        "base": {
+            "host": "192.168.0.210:502/126/",
+            "protocol": "modbus+tcp",
+            "pathname": "{path}",
+            "description": "",
+            "title": "",
+            "summary": "",
+            "variables": {
+                "path": {
+                    "default": " ",
+                    "enum": [
+                        " ",
+                        "in/1/2",
+                        "in/3/2",
+                        "in/5/2",
+                        "in/13/2",
+                        "in/15/2",
+                        "in/17/2",
+                        "in/55/2"
+                    ]
+                }
+            },
+            "security": [],
+            "bindings": {}
+        }
+    },
+    "channels": {
+        "properties_resource_channel": {
+            "messages": {
+                "Voltage_L1N": {
+                    "$ref": "#/components/messages/Voltage_L1N"
+                },
+                "Voltage_L2N": {
+                    "$ref": "#/components/messages/Voltage_L2N"
+                },
+                "Voltage_L3N": {
+                    "$ref": "#/components/messages/Voltage_L3N"
+                },
+                "Current_L1": {
+                    "$ref": "#/components/messages/Current_L1"
+                },
+                "Current_L2": {
+                    "$ref": "#/components/messages/Current_L2"
+                },
+                "Current_L3": {
+                    "$ref": "#/components/messages/Current_L3"
+                },
+                "Frequency": {
+                    "$ref": "#/components/messages/Frequency"
+                }
+            },
+            "servers": [
+                {
+                    "$ref": "#/servers/base"
+                }
+            ]
+        }
+    },
+    "operations": {
+        "properties_resource_operation": {
+            "messages": [
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/Voltage_L1N"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/Voltage_L2N"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/Voltage_L3N"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/Current_L1"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/Current_L2"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/Current_L3"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/Frequency"
+                }
+            ],
+            "action": "receive",
+            "channel": {
+                "$ref": "#/channels/properties_resource_channel"
+            }
+        }
+    },
+    "components": {
+        "messages": {
+            "Voltage_L1N": {
+                "headers": {
+                    "$ref": "#/components/schemas/Voltage_L1N_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/Voltage_L1N_payload"
+                }
+            },
+            "Voltage_L2N": {
+                "headers": {
+                    "$ref": "#/components/schemas/Voltage_L2N_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/Voltage_L2N_payload"
+                }
+            },
+            "Voltage_L3N": {
+                "headers": {
+                    "$ref": "#/components/schemas/Voltage_L3N_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/Voltage_L3N_payload"
+                }
+            },
+            "Current_L1": {
+                "headers": {
+                    "$ref": "#/components/schemas/Current_L1_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/Current_L1_payload"
+                }
+            },
+            "Current_L2": {
+                "headers": {
+                    "$ref": "#/components/schemas/Current_L2_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/Current_L2_payload"
+                }
+            },
+            "Current_L3": {
+                "headers": {
+                    "$ref": "#/components/schemas/Current_L3_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/Current_L3_payload"
+                }
+            },
+            "Frequency": {
+                "headers": {
+                    "$ref": "#/components/schemas/Frequency_headers"
+                },
+                "payload": {
+                    "$ref": "#/components/schemas/Frequency_payload"
+                }
+            }
+        },
+        "externalDocs": {
+            "externalDocs": {
+                "description": "@context",
+                "url": "https://www.w3.org/2019/wot/td/v1"
+            }
+        },
+        "schemas": {
+            "Voltage_L1N_headers": {},
+            "Voltage_L1N_payload": {
+                "type": "number"
+            },
+            "Voltage_L2N_headers": {},
+            "Voltage_L2N_payload": {
+                "type": "number"
+            },
+            "Voltage_L3N_headers": {},
+            "Voltage_L3N_payload": {
+                "type": "number"
+            },
+            "Current_L1_headers": {},
+            "Current_L1_payload": {
+                "type": "number"
+            },
+            "Current_L2_headers": {},
+            "Current_L2_payload": {
+                "type": "number"
+            },
+            "Current_L3_headers": {},
+            "Current_L3_payload": {
+                "type": "number"
+            },
+            "Frequency_headers": {},
+            "Frequency_payload": {
+                "type": "number"
+            }
+        }
+    },
+    "defaultContentType": "application/octet-stream",
+    "id": "urn:dev:wot:com:siemens:sentron:pac4200"
+}

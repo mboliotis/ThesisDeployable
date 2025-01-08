@@ -1,0 +1,69 @@
+{
+    "asyncapi": "3.0.0",
+    "info": {
+        "title": "Web Thing Model API for DHT22 sensor",
+        "description": "This is a Web Thing Model server.  You can find\nout more about Web Thing Model (W3C) at\n[https://www.w3.org/Submission/wot-model/](https://www.w3.org/Submission/wot-model/).\n",
+        "version": "1.0.0"
+    },
+    "servers": {
+        "main_server": {
+            "host": "http://localhost:5000/DHT22",
+            "protocol": "http",
+            "description": "SwaggerHub API Auto Mocking"
+        }
+    },
+    "channels": {
+        "properties_resource_channel": {
+            "address": "state",
+            "messages": {
+                "get_humidity": {
+                    "$ref": "#/components/messages/get_humidity"
+                },
+                "get_temperature": {
+                    "$ref": "#/components/messages/get_temperature"
+                }
+            },
+            "servers": [
+                {
+                    "$ref": "#/servers/main_server"
+                }
+            ]
+        }
+    },
+    "operations": {
+        "properties_resource_operation": {
+            "action": "receive",
+            "channel": {
+                "$ref": "#/channels/properties_resource_channel"
+            },
+            "messages": [
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/get_humidity"
+                },
+                {
+                    "$ref": "#/channels/properties_resource_channel/messages/get_temperature"
+                }
+            ]
+        }
+    },
+    "components": {
+        "messages": {
+            "get_humidity": {
+                "payload": {
+                    "type": "object"
+                }
+            },
+            "get_temperature": {
+                "payload": {
+                    "type": "object"
+                }
+            }
+        },
+        "externalDocs": {
+            "externalDocs": {
+                "description": "Find out more about Web Thing Model",
+                "url": "https://www.w3.org/Submission/wot-model/"
+            }
+        }
+    }
+}
