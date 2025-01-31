@@ -16,8 +16,8 @@
     },
     "servers": {
         "base": {
-            "host": "https://w3c.p-wot.com/{var1}/",
-            "protocol": "https",
+            "host": "w3c.p-wot.com/{var1}/",
+            "protocol": "coap",
             "pathname": "/wot-ver2/things/airconditioner/1/{var2}",
             "description": "This is the main server",
             "title": "The main server",
@@ -40,30 +40,16 @@
                     ]
                 }
             },
-            "security": [
-                {
-                    "type": "http",
-                    "scheme": "bearer",
-                    "bearerFormat": "JWT"
-                }
-            ],
             "bindings": {}
         },
         "base22": {
-            "host": "https://w3c.p-wot.com",
-            "protocol": "https",
+            "host": "w3c.p-wot.com",
+            "protocol": "coap",
             "pathname": "/wot-ver2/things/airconditioner/1/",
             "description": "",
             "title": "",
             "summary": "",
             "variables": {},
-            "security": [
-                {
-                    "type": "http",
-                    "scheme": "bearer",
-                    "bearerFormat": "JWT"
-                }
-            ],
             "bindings": {}
         }
     },

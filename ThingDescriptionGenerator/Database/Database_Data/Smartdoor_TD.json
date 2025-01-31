@@ -7,13 +7,13 @@
     },
     "servers": {
         "main_server": {
-            "host": "http://localhost:5000/DHT22",
-            "protocol": "http",
+            "host": "localhost:5000/DHT22",
+            "protocol": "mqtt",
             "description": "SwaggerHub API Auto Mocking"
         },
         "dev_server": {
-            "host": "http://localhost:5220/DHT22",
-            "protocol": "http",
+            "host": "localhost:5220/DHT22",
+            "protocol": "mqtt",
             "description": "SwaggerHub API Auto Mocking"
         }
     },

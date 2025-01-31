@@ -7,8 +7,8 @@
     },
     "servers": {
         "base": {
-            "host": "http://wot.f-ncs.ad.jp/Things/urn%3Acom%3Afujitsu%3Aechonet-lite%3A000e7b137c10029001/",
-            "protocol": "http",
+            "host": "wot.f-ncs.ad.jp/Things/urn%3Acom%3Afujitsu%3Aechonet-lite%3A000e7b137c10029001/",
+            "protocol": "xmpp",
             "pathname": "property/",
             "description": "",
             "title": "",

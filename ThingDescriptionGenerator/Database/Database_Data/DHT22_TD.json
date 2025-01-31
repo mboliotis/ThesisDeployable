@@ -2,13 +2,13 @@
     "asyncapi": "3.0.0",
     "info": {
         "title": "Web Thing Model API for DHT22 sensor",
-        "description": "This is a Web Thing Model server.  You can find\nout more about Web Thing Model (W3C) at\n[https://www.w3.org/Submission/wot-model/](https://www.w3.org/Submission/wot-model/).\n",
+        "description": "This is a Web Thing Model server.  You can find out more about Web Thing Model (W3C) at [https://www.w3.org/Submission/wot-model/](https://www.w3.org/Submission/wot-model/).",
         "version": "1.0.0"
     },
     "servers": {
         "main_server": {
-            "host": "http://localhost:5000/DHT22",
-            "protocol": "http",
+            "host": "localhost:5000/DHT22",
+            "protocol": "coap",
             "description": "SwaggerHub API Auto Mocking"
         }
     },

@@ -6,8 +6,8 @@
     },
     "servers": {
         "base": {
-            "host": "https://w3c.p-wot.com",
-            "protocol": "https",
+            "host": "w3c.p-wot.com",
+            "protocol": "mqtt",
             "pathname": "/wot-ver2/things/airconditioner/1/",
             "description": "",
             "title": "",
