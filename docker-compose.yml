@@ -1,7 +1,6 @@
-version: '3.8'
-
 services:
   frontend:
+    image: frontend:Feb_1_2025
     build:
       context: ./Thesis_Frontend  # Relative path to frontend directory
     ports:
@@ -12,6 +11,7 @@ services:
       - app-network
 
   backend:
+    image: backend:Feb_1_2025
     build:
       context: ./ThingDescriptionGenerator  # Relative path to backend directory
     ports:

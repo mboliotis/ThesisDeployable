@@ -4,7 +4,7 @@ import os
 import sys
 from flask import jsonify, request
 sys.path.append('..')
-from Tools.UserInputParser import UserInputParser
+from Tools.Tools import UserInputParser as uiParser
 from Database.DatabaseEmulator import DatabaseSim
 import traceback
 
@@ -13,7 +13,7 @@ import traceback
 def createDocumentFromSingleInput(docID):
     try:
         usrInput = request.get_json() # Get user input as dictionary
-        usrInputPrs = UserInputParser(usrInput) # Extract all the objects
+        usrInputPrs = uiParser.UserInputParser(usrInput) # Extract all the objects
         newAsyncApiDoc = usrInputPrs.convert2Asyncapi() # Convert to Asyncapi object
         if len(newAsyncApiDoc) == 0:
             return jsonify({
