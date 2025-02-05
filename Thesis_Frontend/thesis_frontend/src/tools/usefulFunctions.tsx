@@ -13,6 +13,33 @@ function InObjectPathfinder(theObject:any, thePath:string[], newValue:any){
     }
 }
 
+// ============================================== Tools ============================================== //
+
+/**
+ * Check if a string is empty or filled with white spaces only.
+ * @param str The string that may be empty. 
+ * @returns true / false
+ */
+function isEmpty(str: string): boolean {
+    return str.trim().length === 0
+}
 
 
-export {InObjectPathfinder}
+/**
+ *  If a variable was supposed to be of type string but is of type undefined return an empty string.
+ */
+function undefined2string(variable: any): string {
+    if (typeof variable === "undefined") {
+        return ""
+    }
+    return variable
+}
+
+
+
+function except(e: any) {
+    throw new Error("Function not implemented.")
+}
+// ============================================== Tools ============================================== //
+
+export {InObjectPathfinder, isEmpty, undefined2string}
