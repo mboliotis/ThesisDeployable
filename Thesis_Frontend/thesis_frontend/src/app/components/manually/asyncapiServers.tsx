@@ -1,6 +1,7 @@
 import { ApplicationDataProps, AsyncAPI_server, IServerVariable, IServerVariables, Servers } from "@/tools/interfaces";
-import { undefined2string } from "@/tools/usefulFunctions";
+import { isEmpty, undefined2string } from "@/tools/usefulFunctions";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import Image from 'next/image'
 
 function ServersContainer(props: ApplicationDataProps) {
     const [servers, setServers] = useState<Servers>();
@@ -172,6 +173,14 @@ function ServerUnit(props: ServerUnitProps) {
     }
 
     const SaveChanges = () => {
+        if (isEmpty(serverHost)){
+            alert("Host can not be empty!")
+            return
+        }
+        if (isEmpty(serverProtocol)){
+            alert("Protocol can not be empty!")
+            return
+        }
         const serverData: AsyncAPI_server = {
             host: serverHost,
             protocol: serverProtocol,
@@ -258,10 +267,10 @@ function ServerUnit(props: ServerUnitProps) {
                 </div>
             </div>
             <div className="flex flex-col space-y-2 items-baseline border-2 border-black rounded-md p-2 w-full">
-                <div  >
+                <div className="w-full" >
                     <label>variables:</label>
                 </div>
-                <div>
+                <div className="w-full" >
                     <ServerVariablesContainer
                         serverID={props.server_id}
                         variablesSetter={setServerVariables}
@@ -287,11 +296,44 @@ function ServerVariablesContainer(props: ServerVariablesContainerProps) {
     const [keyRegistry, setKeyRegistry] = useState<Map<string, string>>(new Map<string, string>())
 
     const ChangeVariableID = (oldVariableID: string, newVariableID: string) => {
-        console.log("new ID")
+        
+        if (typeof props.variables !== "undefined"){
+            if (newVariableID in props.variables){
+                alert("This ID already exists!")
+                return
+            }
+        }
+        
+
+        const varaiblesCopy: IServerVariables = {}
+
+        for (const key in props.variables) {
+            if (key === oldVariableID) {
+                varaiblesCopy[newVariableID] = props.variables[oldVariableID]
+            }
+            else{
+                varaiblesCopy[key] = props.variables[key]
+            }
+        }
+        
+        const keyRegistryCopy = new Map(keyRegistry)
+        const registryValue = keyRegistry.get(oldVariableID)
+        if (typeof registryValue !== "undefined"){
+            keyRegistryCopy.set(newVariableID, registryValue)
+            keyRegistryCopy.delete(oldVariableID)
+            setKeyRegistry(keyRegistryCopy)
+            props.variablesSetter(varaiblesCopy)
+        }
+        
+        
     }
 
     const ChangeVariableData = (variableID: string, newVariableData: string) => {
-        console.log("new data")
+        // Convert json string to object
+        const varData = JSON.parse(newVariableData)
+        const variablesCopy = { ...props.variables }
+        variablesCopy[variableID] = varData 
+        props.variablesSetter(variablesCopy)
     }
 
     // Initialize
@@ -307,6 +349,16 @@ function ServerVariablesContainer(props: ServerVariablesContainerProps) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    const DeleteVariable = (variableID: string) => {
+        const varaiblesCopy: IServerVariables = {}
+
+        for (const key in props.variables) {
+            if (key === variableID) continue
+            varaiblesCopy[key] = props.variables[key]
+        }
+
+        props.variablesSetter(varaiblesCopy)
+    }
 
     // Create an array with components to be displayed
     const displayVars: JSX.Element[] = []
@@ -320,6 +372,7 @@ function ServerVariablesContainer(props: ServerVariablesContainerProps) {
                     dataCallBack={ChangeVariableData}
                     idCallBack={ChangeVariableID}
                     variableData={props.variables[key]}
+                    deleteVariableCallback={DeleteVariable}
                 />
             )
         }
@@ -378,6 +431,7 @@ function ServerVariablesContainer(props: ServerVariablesContainerProps) {
 
 interface ServerVariableProps {
     variableID: string,
+    deleteVariableCallback: (variableID: string) => void,
     dataCallBack: (variableID: string, newVariableData: string) => void,
     idCallBack: (oldVariableID: string, newVariableID: string) => void,
     variableData: IServerVariable
@@ -409,17 +463,11 @@ function ServerVariable(props: ServerVariableProps) {
     const SaveChanges = (source: string, value: string) => {
 
         if (source === "variableID") {
-            props.idCallBack(props.variableID,
-                JSON.stringify({
-                    oldID: props.variableID,
-                    newID: value
-                })
-            )
+            props.idCallBack(props.variableID, value)
             return
         }
 
         let variableState = {
-            variableID: props.variableID,
             enum: svEnum,
             default: svDefault,
             description: svDescription,
@@ -430,7 +478,6 @@ function ServerVariable(props: ServerVariableProps) {
             try {
                 const enumData = JSON.parse(value) as { enum: string[] }
                 variableState = {
-                    variableID: props.variableID,
                     enum: enumData.enum,
                     default: svDefault,
                     description: svDescription,
@@ -443,7 +490,6 @@ function ServerVariable(props: ServerVariableProps) {
         }
         else if (source === "default") {
             variableState = {
-                variableID: props.variableID,
                 enum: svEnum,
                 default: value,
                 description: svDescription,
@@ -452,7 +498,6 @@ function ServerVariable(props: ServerVariableProps) {
         }
         else if (source === "description") {
             variableState = {
-                variableID: props.variableID,
                 enum: svEnum,
                 default: svDefault,
                 description: value,
@@ -463,7 +508,6 @@ function ServerVariable(props: ServerVariableProps) {
             try {
                 const examplesData = JSON.parse(value) as { examples: string[] }
                 variableState = {
-                    variableID: props.variableID,
                     enum: svEnum,
                     default: svDefault,
                     description: svDescription,
@@ -483,51 +527,61 @@ function ServerVariable(props: ServerVariableProps) {
         props.dataCallBack(props.variableID, serverVariableAsJson)
     }
 
+
+
     return (
         <div className="flex flex-col space-y-2 items-baseline border-2 border-black rounded-md p-2 w-full">
-            <div className="flex flex-row items-baseline space-x-2">
+            <div className="flex flex-row items-center space-x-2 w-full">
                 <div>
                     <label>
                         variableID:
                     </label>
                 </div>
+                <div className="w-full">
+                    <input type="text" value={props.variableID} onChange={(e) => SaveChanges("variableID", e.target.value)} className="input input-bordered w-full" />
+                </div>
                 <div>
-                    <input type="text" value={props.variableID} onChange={(e) => SaveChanges("variableID", e.target.value)} className="input input-bordered w-full max-w-xs" />
+                    <button className="btn " onClick={() => props.deleteVariableCallback(props.variableID)}>
+                        <Image
+                            src="/icons/trash.png"
+                            width={30}
+                            height={30}
+                            alt="delete button"
+                        />
+                    </button>
                 </div>
             </div>
-            <div className="flex flex-row items-baseline space-x-2">
-                <div>
+            <div className="flex flex-row items-baseline space-x-2 w-full">
+                <div >
                     <label>
                         default:
                     </label>
                 </div>
-                <div>
-                    <input type="text" value={svDefault} onChange={(e) => SaveChanges("default", e.target.value)} className="input input-bordered w-full max-w-xs" />
+                <div className="w-full">
+                    <input type="text" value={svDefault} onChange={(e) => SaveChanges("default", e.target.value)} className="input input-bordered w-full " />
                 </div>
             </div>
-            <div className="flex flex-row items-baseline space-x-2">
+            <div className="flex flex-row items-baseline space-x-2 w-full">
                 <div>
                     <label>
                         description:
                     </label>
                 </div>
-                <div>
-                    <input type="text" value={svDescription} onChange={(e) => SaveChanges("description", e.target.value)} className="input input-bordered w-full max-w-xs" />
+                <div className="w-full">
+                    <input type="text" value={svDescription} onChange={(e) => SaveChanges("description", e.target.value)} className="input input-bordered w-full " />
                 </div>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col w-full">
                 <div>
                     <label>
                         enum:
                     </label>
                 </div>
-                <div>
-                    <ServerVariablesEnumValue
-                        variableID={props.variableID}
-                        enumValues={svEnum}
-                        dataCallback={SaveChanges}
-                    />
-                </div>
+                <ServerVariablesEnumValue
+                    variableID={props.variableID}
+                    enumValues={svEnum}
+                    dataCallback={SaveChanges}
+                />
             </div>
             <div>
 
@@ -546,7 +600,8 @@ function ServerVariablesEnumValue(props: ServerVariablesEnumValueProps) {
     const [serialNumber, setSerialNumber] = useState(0)
 
     useEffect(() => {
-        // Generate Keys
+        // Generate react Keys
+        if (props.enumValues.length === 0) return
         const temp = { ...keyRegistry } as { [key: string]: string }
         for (let i = 0; i < props.enumValues.length; i++) {
             temp[props.enumValues[i]] = props.variableID + "_serial-number_" + serialNumber.toString()
@@ -556,19 +611,114 @@ function ServerVariablesEnumValue(props: ServerVariablesEnumValueProps) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const displayVals: JSX.Element[] = []
-    for (let i = 0; i < props.enumValues.length; i++) {
-        const inputKey = keyRegistry[props.enumValues[i]]
-        displayVals.push(
-            <input type="text" key={inputKey} value={props.enumValues[i]} className="input input-bordered w-full max-w-xs" />
+    const InputHandler = (fieldKey: string, event: React.ChangeEvent<HTMLInputElement>) => {
+        for (const key in keyRegistry) {
+            if (key === event.target.value) {
+                alert("You are about to create a duplicate value! Try something else.")
+                return
+            }
+        }
+
+        const enumValuesCopy = [...props.enumValues]
+        const keyRegistryCopy = { ...keyRegistry }
+        const newValue = event.target.value
+        let oldValue: string = ""
+        // Find the old value
+        for (const key in keyRegistry) {
+            if (keyRegistry[key] === fieldKey) {
+                oldValue = key
+                break
+            }
+        }
+        // Replace old value with new value
+        for (let i = 0; i < enumValuesCopy.length; i++) {
+            if (enumValuesCopy[i] === oldValue) {
+                enumValuesCopy[i] = newValue
+            }
+        }
+        // Update registry with new value
+        const temp = {} as { [key: string]: string }
+        for (const key in keyRegistryCopy) {
+            if (key === oldValue) {
+                temp[newValue] = keyRegistryCopy[oldValue]
+            }
+            else {
+                temp[key] = keyRegistryCopy[key]
+            }
+        }
+        // Save all changes
+        setKeyRegistry(temp)
+        props.dataCallback(
+            "enum",
+            JSON.stringify(
+                {
+                    enum: enumValuesCopy
+                }
+            )
+        )
+
+    }
+
+    const DeleteField = (value: string) => {
+
+        // Remove key from registry
+        const keyRegistryCopy: { [key: string]: string } = {}
+        for (const key in keyRegistry) {
+            if (key === value) continue
+            keyRegistryCopy[key] = keyRegistry[key]
+        }
+        setKeyRegistry(keyRegistryCopy)
+
+
+        // Update app state
+        const enumValuesCopy = []
+        let index = 0
+        for (let i = 0; i < props.enumValues.length; i++) {
+            if (props.enumValues[i] === value) {
+                continue
+            }
+            enumValuesCopy[index] = props.enumValues[i]
+            index++
+        }
+        props.dataCallback(
+            "enum",
+            JSON.stringify(
+                {
+                    enum: enumValuesCopy
+                }
+            )
         )
     }
+
+    const displayVals: JSX.Element[] = []
+    for (const key in keyRegistry) {
+        displayVals.push(
+            <div className="flex flex-row space-x-2 items-center w-full" key={keyRegistry[key]}>
+                <div className="w-full">
+                    <input type="text" key={keyRegistry[key]} value={key} onChange={(e) => InputHandler(keyRegistry[key], e)} className="input input-bordered  w-full" />
+                </div>
+                <div>
+                    <button className="btn" onClick={() => DeleteField(key)}>
+                        <Image
+                            src="/icons/trash.png"
+                            width={20}
+                            height={20}
+                            alt="delete button"
+                        />
+                    </button>
+                </div>
+            </div>
+        )
+    }
+
+
 
     const CreateNewField = () => {
         const DefaultValue = "Default Value " + serialNumber.toString()
         const keyRegistryCopy = { ...keyRegistry }
-        keyRegistryCopy[DefaultValue] = props.variableID + "_serial-number_" + serialNumber.toString()
+        keyRegistryCopy[DefaultValue] = props.variableID + "_enum_serial-number_" + serialNumber.toString()
         setSerialNumber(serialNumber + 1)
+        setKeyRegistry(keyRegistryCopy)
         const enumValuesCopy = [...props.enumValues]
         enumValuesCopy.push(
             DefaultValue
@@ -585,12 +735,12 @@ function ServerVariablesEnumValue(props: ServerVariablesEnumValueProps) {
     }
 
     return (
-        <div className="flex flex-col">
-            <div className="flex flex-col">
+        <div className="flex flex-col space-y-2">
+            <div className="flex flex-col space-y-1">
                 {displayVals}
             </div>
-            <div>
-                <button className="btn" onClick={CreateNewField}>New</button>
+            <div className="flex justify-end">
+                <button className="btn" onClick={CreateNewField}>New Value</button>
             </div>
         </div>
     )

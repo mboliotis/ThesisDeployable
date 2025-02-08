@@ -5,9 +5,10 @@
 "use client"
 import {useState } from "react"
 import  {ApplicationData, ApplicationDataProps} from "@/tools/interfaces"
-import { VersionContainer } from "../components/manually/asyncapiVersion";
-import { InfoContainer } from "../components/manually/asyncapiInfo";
-import { ServersContainer } from "../components/manually/asyncapiServers";
+import { VersionContainer } from "@/app/components/manually/asyncapiVersion";
+import { InfoContainer } from "@/app/components/manually/asyncapiInfo";
+import { ServersContainer } from "@/app/components/manually/asyncapiServers";
+import {MessagesContainer} from "@/app/components/manually/messages"
 
 export default function MainContainer() {
     const [appSate, setAppState] = useState<ApplicationData>({ asyncapi: "3.0.0" });
@@ -39,6 +40,10 @@ function SectionsContainer(props: ApplicationDataProps) {
                 appDataSetter={props.appDataSetter}
             />
             <ServersContainer
+                appData={props.appData}
+                appDataSetter={props.appDataSetter}
+            />
+            <MessagesContainer
                 appData={props.appData}
                 appDataSetter={props.appDataSetter}
             />

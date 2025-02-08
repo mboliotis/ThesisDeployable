@@ -42,10 +42,18 @@ interface Servers {
     [key: string]: AsyncAPI_server
 }
 
+interface Message{
+    headers?:any,
+    payload?:any
+}
+interface Messages{
+    [messageID:string]:Message
+}
 interface ApplicationData {
     asyncapi: string,
     info?: AsyncAPI_info
     servers?: Servers
+    messages?:Messages
 }
 interface ApplicationDataProps {
     appData: ApplicationData,
@@ -53,4 +61,4 @@ interface ApplicationDataProps {
 }
 
 
-export type {AsyncAPI_info_license, AsyncAPI_info_contact, IServerVariable, IServerVariables, AsyncAPI_server, AsyncAPI_info, Servers, ApplicationData, ApplicationDataProps}
+export type {AsyncAPI_info_license, AsyncAPI_info_contact, IServerVariable, IServerVariables, AsyncAPI_server, AsyncAPI_info, Servers, ApplicationData, ApplicationDataProps, Message}
