@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction} from "react"
+import { Dispatch, SetStateAction } from "react"
 interface AsyncAPI_info_license {
     name: string,
     url?: string
@@ -42,23 +42,35 @@ interface Servers {
     [key: string]: AsyncAPI_server
 }
 
-interface Message{
-    headers?:any,
-    payload?:any
+enum MessageType {
+    Property = "Property",
+    Action = "Action",
+    WebThing = "WebThing"
 }
-interface Messages{
-    [messageID:string]:Message
+interface Message {
+    messageID: string,
+    type: MessageType,
+    headers?: any,
+    payload?: any
+}
+interface Messages {
+    [messageID: string]: Message
 }
 interface ApplicationData {
     asyncapi: string,
     info?: AsyncAPI_info
     servers?: Servers
-    messages?:Messages
+    messages?: Messages
+    id?:string
+    externalDocs?:{
+        description:string,
+        url:string
+    }
 }
 interface ApplicationDataProps {
     appData: ApplicationData,
     appDataSetter: Dispatch<SetStateAction<ApplicationData>>
 }
 
-
-export type {AsyncAPI_info_license, AsyncAPI_info_contact, IServerVariable, IServerVariables, AsyncAPI_server, AsyncAPI_info, Servers, ApplicationData, ApplicationDataProps, Message}
+export { MessageType }
+export type { AsyncAPI_info_license, AsyncAPI_info_contact, IServerVariable, IServerVariables, AsyncAPI_server, AsyncAPI_info, Servers, ApplicationData, ApplicationDataProps, Message}
