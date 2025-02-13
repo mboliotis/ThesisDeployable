@@ -1,5 +1,7 @@
 import os
 import json 
+
+
 """
     This class simulates a database.
     It will store data in specified directory to be accessed and edited.
@@ -10,15 +12,11 @@ class DatabaseSim:
         path_separator = os.path.sep
         self.folderPath = os.path.join(os.path.dirname(__file__), 'Database_Data')
     
-    def Test(self):
-        print("up and running!")
-
-
+    
     """
-        Will create a json file
+        Will create an empty json file inside Databse_Data dir
     """
     def CreateDocument(self, docID):
-         
         filename = os.path.join(self.folderPath , str(docID)+".json")
         with open(filename, "w") as file:
             pass  # This line is intentionally left empty

@@ -9,8 +9,10 @@ def create_app(test_config=None):
     app = Flask(__name__)
     CORS(app)
     app.register_blueprint(asyncapidoc, url_prefix='/doc')
+
     # return the api version
     @app.route('/')
     def apiVersion():
         return jsonify({'version':'1.0'})
+    
     return app

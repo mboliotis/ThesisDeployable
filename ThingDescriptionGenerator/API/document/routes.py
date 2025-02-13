@@ -18,7 +18,7 @@ def createDocumentFromSingleInput(docID):
         if len(newAsyncApiDoc) == 0:
             return jsonify({
                 "msg":"fail",
-                "description":"Some internet error. Failed to generate the asyncapi document. Check the input and try again."
+                "description":"Failed to generate the asyncapi document. Check the input and try again."
                 })
         dbe = DatabaseSim()
         dbe.StoreData(docID, newAsyncApiDoc)

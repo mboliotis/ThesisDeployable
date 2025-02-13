@@ -31,6 +31,7 @@ class UserInputParser:
     def validateAndExtract(self):
         if not self.inputIsSet():
             return False
+        
         isValid = True
         try:
             if "info" not in self.user_input:
@@ -75,8 +76,10 @@ class UserInputParser:
 
             if "messagesSchemas" in self.user_input:
                 self.ExtractMessagesSchemas()
+
             if "components" in self.user_input:
                 self.extractNonMandatoryComponents()
+                
         except Exception as e:
             isValid = False
             print(e)
