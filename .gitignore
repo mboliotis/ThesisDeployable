@@ -130,4 +130,4 @@ dist
 .pnp.*
 
 # Ignor python virtual env
-.venv/
+ThingDescriptionGenerator\.venv
